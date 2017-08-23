@@ -8,4 +8,4 @@
 
 [Link to google](http://www.google.com)
 
-### [githubg](http://www.github.com)
+### [github](http://www.github.com)

@@ -1,15 +1,10 @@
-# CIM540
+# CIM540 Robert Harter
 
-## This is smaller than above
+## About Me
 
-### This is even smaller
+Hi! I'm Robert Harter. I am a senior at the University of Miami studying [bassoon](https://en.wikipedia.org/wiki/Bassoon) performance at the Frost School of music.
+I am interesting in learning to code as a means to create useful and entertaining applications to aid in the teaching, learning, and practicing of music.
 
-###### This might be the smallest
+#[Week 1](https://github.com/Robbie219/CIM540/tree/master/week1)
 
-[Link to google](http://www.google.com)
 
-### [github](http://www.github.com)
-
-[Week 1 Readme](https://github.com/Robbie219/CIM540/blob/master/week1/readme.md)
-
-![Penguin Image](http://honesttopaws.com/wp-content/uploads/sites/5/2016/02/3-penguins.jpg)

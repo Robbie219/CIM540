@@ -39,15 +39,7 @@
         
         function Calculate()
         {
-            var heightfeet = document.getElementById("heightfeet").value;
-            var multiplication = heightfeet * 0.3048;
-            var gravity = multiplication * 9.8;
-            var double = gravity * 2;
-            var squareroot = Math.sqrt(double);
-            var solution = squareroot * 2.23694;
-            var message = solution + " miles per hour";
-            document.getElementById("solution").innerHTML = message;
-            
+            document.getElementById("solution").innerHTML = Math.sqrt(document.getElementById("heightfeet").value * 0.3048 * 9.8 * 2) * 2.23694 + " miles per hour";   
         }
         
         

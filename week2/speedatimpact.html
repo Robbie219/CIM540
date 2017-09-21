@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Speed at Impact Calculator</title>
+
+    <style>
+        /* Enter CSS below */
+    </style>
+
+ </head>
+
+
+<body>
+
+    <h1>Speed at Impact Calculator</h1>
+    
+    <br>
+    
+    <p><i>To calculate the speed in miles per hour of an object dropped from a certian height;<br>enter the height in feet that the object is to be dropped from, then hit calculate.</i></p>
+    
+    
+    <form id="heightform" method="post">
+        
+        <label for="heightfeet">Height in Feet</label>
+        <input type="number" name="heightfeet" id="heightfeet">
+        
+        <br>
+        <br>
+        
+        <input type ="button" value="Calculate" onclick="Calculate()"/>
+        
+        <p id="solution"></p>
+    
+    </form>
+
+
+    <script>
+        
+        function Calculate()
+        {
+            var heightfeet = document.getElementById("heightfeet").value;
+            var multiplication = heightfeet * 0.3048;
+            var gravity = multiplication * 9.8;
+            var double = gravity * 2;
+            var squareroot = Math.sqrt(double);
+            var solution = squareroot * 2.23694;
+            var message = solution + " miles per hour";
+            document.getElementById("solution").innerHTML = message;
+            
+        }
+        
+      
+        
+    </script>
+
+</body>
+
+</html>

@@ -23,12 +23,13 @@
     <form id="heightform" method="post">
         
         <label for="heightfeet">Height in Feet</label>
-        <input type="number" name="heightfeet" id="heightfeet">
+        <input type="text" name="heightfeet" id="heightfeet" onkeydown="if (event.keyCode== 13) {document.getElementById('calculate').click();event.returnValue=false;event.cancel=true;}">
         
         <br>
         <br>
         
-        <input type ="button" value="Calculate" onclick="Calculate()"/>
+        <input type ="button" value="Calculate" id="calculate" onclick="Calculate()"/>
+        
         
         <p id="solution"></p>
     
@@ -49,6 +50,7 @@
             document.getElementById("solution").innerHTML = message;
             
         }
+        
         
       
         

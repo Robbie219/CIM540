@@ -5,7 +5,9 @@
     <title>Speed at Impact Calculator</title>
 
     <style>
-        /* Enter CSS below */
+ 
+        body {background-color: palegreen}
+        
     </style>
 
  </head>
@@ -13,12 +15,12 @@
 
 <body>
 
-    <h1>Speed at Impact Calculator</h1>
+    <h1 id="cssOne">Speed at Impact Calculator</h1>
     
-    <img src="galileo-piza.jpg" height=300>
+    <div id="image" style="text-align: center"><img src="galileo-piza.jpg" height=300 align="middle" text-align = "center"></div>
     
     
-    <p><i>Enter a height to determine how fast an object would be going by the time it hits the ground when dropped from that height.</i></p>
+    <p id="cssTwo"><i>Enter a height to determine how fast an object would be going by the time it hits the ground when dropped from that height.</i></p>
     
     
     <form id="heightform" method="post">
@@ -28,7 +30,7 @@
       
     </form>
 <br>
-    <div id="output"></div>
+    <div id="output" style="text-align: center; font-family: verdana; color: navy;"></div>
 
     <script>
         
@@ -48,6 +50,28 @@
         
         var getButton = document.getElementById("calculateButton");
         getButton.addEventListener("click", Calculate);
+        
+        
+        var cssChange = document.getElementById("cssOne");
+        cssChange.style.color = "navy";
+        cssChange.style.fontFamily = "verdana";
+        cssChange.style.textAlign = "center";
+        
+        var cssChangeTwo = document.getElementById("cssTwo");
+        cssChangeTwo.style.color = "navy";
+        cssChangeTwo.style.fontFamily = "verdana";
+        cssChangeTwo.style.textAlign = "center";
+        
+        var cssChangeThree = document.getElementById("heightform");
+        cssChangeThree.style.color = "navy";
+        cssChangeThree.style.fontFamily = "verdana";
+        cssChangeThree.style.textAlign = "center";
+        
+   
+        
+        
+        
+        
              
     </script>
 

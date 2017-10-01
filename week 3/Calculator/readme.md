@@ -1,4 +1,4 @@
-# Speed at Impact Calculater
+# Speed at Impact [Calculater](https://github.com/Robbie219/CIM540/blob/master/week%203/Calculator/speedatimpact.html)
 
 This program is a calculator where the user enters a height, in feet, from which an object is to be dropped and the calculator returns the speed in, miles per hour, that the object will reach when it hits the ground.
 

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Speed at Impact Calculator</title>
+
+    <style>
+        /* Enter CSS below */
+    </style>
+
+ </head>
+
+
+<body>
+
+    <h1>Speed at Impact Calculator</h1>
+    
+    <img src="galileo-piza.jpg" height=300>
+    
+    
+    <p><i>Enter a height to determine how fast an object would be going by the time it hits the ground when dropped from that height.</i></p>
+    
+    
+    <form id="heightform" method="post">
+        
+        <label for="heightfeet">Height in Feet:</label>
+        <input type="text" name="heightfeet" id="heightfeet" onkeydown="if (event.keyCode== 13) {document.getElementById('calculateButton').click();event.returnValue=false;event.cancel=true;}"> <button type="button" id="calculateButton">Calculate!</button>
+    
+        
+        
+     
+    
+    </form>
+<br>
+    <div id="output"></div>
+
+    <script>
+        
+        function Calculate()
+        {
+            var heightfeet = document.getElementById("heightfeet").value;
+            var heightmeters = heightfeet * .3048;
+            var speedmeters = Math.sqrt(heightmeters * 2 * 9.8);
+            var speedmiles = speedmeters * 2.23694;
+                speedmiles = Math.round(speedmiles * 10)/10
+            var message = "Impact at " + speedmiles + " miles per hour";
+            
+            var output = document.getElementById("output");
+            output.innerHTML = message;
+            console.log(message);
+        }
+        
+        var getButton = document.getElementById("calculateButton");
+        getButton.addEventListener("click", Calculate);
+        
+        
+        
+        
+      
+        
+    </script>
+
+</body>
+
+</html>

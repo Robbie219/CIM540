@@ -39,7 +39,7 @@
             var speedmeters = Math.sqrt(heightmeters * 2 * 9.8);
             var speedmiles = speedmeters * 2.23694;
                 speedmiles = Math.round(speedmiles * 10)/10
-            var message = "Impact at " + speedmiles + " miles per hour";
+            var message = speedmiles + " miles per hour at impact";
             
             var output = document.getElementById("output");
             output.innerHTML = message;

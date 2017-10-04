@@ -1,3 +1,3 @@
-# nowhere
+# [nowhere](https://github.com/Robbie219/CIM540/blob/master/week%203/TextAdventure/TextAdventure.html)
 
 This is a text adventure in which users pick from the options to move left, right, straight, back, or teleport. These are indicated with radio inputs. Then users click a button to find out the concsequence of their choice and what location they ended up in. Consequences are: "survived, dead, stuck, rescued, see, hear, and feel." Locations are: "forest, desert, beach, mountain, volcano." The background image of the game changes to correspond with the current location. Depending on the consequence the user receieved, they will either be able to pick another direction, or the game will end.

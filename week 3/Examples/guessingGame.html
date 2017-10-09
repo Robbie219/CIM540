@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My App</title>
+
+    <style>
+        /* Enter CSS below */
+    </style>
+
+ </head>
+
+
+<body>
+
+    <h1>Guessing Game</h1>
+
+    <p><i>Guess a number between 0 and 10</i></p>
+
+    <form>
+          
+      <label for="guessInput">Enter a number: </label>
+      <input type="text" name="guessInput" id="guessInput" onkeydown="if (event.keyCode == 13) 
+                                                                      {
+                                                                      document.getElementById('guessButton').click();
+                                                                      event.returnValue=false;event.cancel=true;
+                                                                      }">
+      <button type="button" id="guessButton">Guess!</button>
+                                        
+    </form>
+    
+    <div id="outputText"></div>
+    
+    <script>
+        
+        function checkAnswer(){
+            
+            var guess = document.getElementById("guessInput").value;
+         
+            var output = document.getElementById("outputText");
+            
+            if(guess == answer) {
+                output.innerHTML = "you guessed correct";
+                answer = Math.floor(Math.random() * 11);
+                console.log(answer);
+            } else if(guess >= 0 && guess < answer){
+                output.innerHTML = "your guess is too low";
+            } else if (guess > answer && guess <= 10 && guess > answer){
+                output.innerHTML = "your guess is too high";
+            } else{
+                output.innerHTML = "try again";
+            }
+            
+            }
+                  
+        var guessButton = document.getElementById("guessButton");
+        guessButton.addEventListener("click", checkAnswer);
+       
+        var answer = Math.floor(Math.random() * 11);
+        
+        console.log(answer);
+        
+    </script>
+
+</body>
+
+</html>

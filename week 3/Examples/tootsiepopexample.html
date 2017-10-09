@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My App</title>
+
+    <style>
+        /* Enter CSS below */
+    </style>
+
+ </head>
+
+
+<body>
+
+    <h1>Tootsie Pop</h1>
+
+    <p><i>Description goes here</i></p>
+
+    <form>
+    <label for="licks">Enter number of licks</label>
+    <input type="text" name="licks" id="licks" onkeydown="if (event.keyCode== 13) {document.getElementById('lButton').click();event.returnValue=false;event.cancel=true;}">
+        <br><br>
+        <button type="button" id="lButton">Enter Licks</button>
+        
+    </form>
+    
+    <div id="output"></div>
+    
+    <script>
+        function centerOfPop(){
+         var licksAmount = document.getElementById("licks").value;
+         var lickRatio = (parseInt(licksAmount)/252) * 100;
+             lickRatio = Math.round(lickRatio)
+         var message = "You have gone " + lickRatio + "% of the way!";
+            
+         var outputText = document.getElementById("output");
+            outputText.innerHTML = message;
+            
+        }
+       
+        
+        
+        var getButton = document.getElementById("lButton");
+        getButton.addEventListener("click", centerOfPop);
+        
+    </script>
+
+</body>
+
+</html>

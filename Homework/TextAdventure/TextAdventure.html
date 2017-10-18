@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+     <html>
+
+<head>
+    <title>nowhere</title>
+
+    <style>
+        /* Enter CSS below */
+        
+        body {
+            background: url(images/Forest.jpeg) no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+           background-size: cover;
+            text-align: center;
+             }
+    </style>
+
+</head>
+
+
+<body>
+
+    <h1 style="background-color: black; color: white; display: inline; font-family: fantasy; font-size: 60px;">nowhere</h1>
+<br><br>
+    <p id="message" style="background-color: black; color: white; display: inline; font-family: fantasy"><i> You are dropped in a forest. You must survive! </i></p>
+<br><br>
+    <form id="directionForm" style="background-color: black; color: white; display: inline; font-family: fantasy">
+        <label>Which direction will you go?</label>
+        <br><br>
+        <input type="radio" name="dir" value="left" id="left">
+        <label for="left">left</label>
+        <br><br>
+        <input type="radio" name="dir" value="straight" id="straight">
+        <label for="straight">straight</label>
+        <br><br>
+        <input type="radio" name="dir" value="right" id="right">
+        <label for="right">right</label>
+        <br><br>
+        <input type="radio" name="dir" value="back" id="back">
+        <label for="back">back</label>
+        <br><br>
+        <input type="radio" name="dir" value="teleport" id="teleport">
+        <label for="teleport">teleport</label>
+        <br><br>
+        <button type="button" id="direction">Where to go</button>
+        
+
+    </form>
+
+    <script>
+        /* Comment: Enter code below */
+        function move() {
+            //grab all the radio buttons with the name dir, then loop through to check which was selected
+            var radios = document.getElementsByName("dir");
+            var currentPos = "";
+            if (radios[0].checked == true) {
+                console.log("left");
+                currentPos = radios[0].value;
+            } else if (radios[1].checked == true) {
+                console.log("straight");
+                currentPos = radios[1].value;
+            } else if (radios[2].checked == true) {
+                console.log("right");
+                currentPos = radios[2].value;
+            } else if (radios[3].checked == true) {
+                console.log("back");
+                currentPos = radios[3].value;
+            } else if (radios[4].checked == true) {
+                console.log("teleport");
+                currentPos = radios[4].value;
+            }
+            var chooseConsequence = Math.floor(Math.random() * consequence.length);
+            var chooseLocation = Math.floor(Math.random() * loc.length);
+            if (consequence[chooseConsequence] == "dead") {
+                getMessage.innerHTML = "You are " + consequence[chooseConsequence] + loc[chooseLocation] + ".";
+                getForm.style.display = "none";
+            } else if (consequence[chooseConsequence] == "survived") {
+                getMessage.innerHTML = "You " + consequence[chooseConsequence] + ". You are" + loc[chooseLocation] + ".";
+            } else if (consequence[chooseConsequence] == "stuck") {
+                getMessage.innerHTML = "You are " + consequence[chooseConsequence] + loc[chooseLocation]+ " with no way out.";
+                getForm.style.display = "none";
+            } else if (consequence[chooseConsequence] == "rescued") {
+                getMessage.innerHTML = "You are " + consequence[chooseConsequence] + " by villagers" + loc[chooseLocation] + ".";
+                getForm.style.display = "none";
+            } else if (consequence[chooseConsequence] == "see") {
+                getMessage.innerHTML = "You are now" + loc[chooseLocation] + ". You can " + consequence[chooseConsequence] + " smoke in the distance.";
+            } else if (consequence[chooseConsequence] == "hear") {
+                getMessage.innerHTML = "You are now" + loc[chooseLocation] + ". You " + consequence[chooseConsequence] + " something rustling behind you.";
+            } else if (consequence[chooseConsequence] == "lost") {
+                getMessage.innerHTML = "You are now" + loc[chooseLocation] + ". You feel even more " + consequence[chooseConsequence] + " than before.";
+            } else if (consequence[chooseConsequence] == "smell") {
+                getMessage.innerHTML = "You are" + loc[chooseLocation] + ". You can " + consequence[chooseConsequence] + " something burning in the distance."
+            } else if (consequence[chooseConsequence] == "feel") {
+                getMessage.innerHTML = "You are" + loc[chooseLocation] + ". You " + consequence[chooseConsequence] + " an arrow whiz past you."
+            }
+            
+            if (loc[chooseLocation] == " in a desert") {
+                document.body.style.backgroundImage = "url('images/Rub_al_Khali_002.jpg')";
+            } else if (loc[chooseLocation] == " in a forest") {
+                document.body.style.backgroundImage = "url('images/Forest.jpeg')";
+            } else if (loc[chooseLocation] == " on a beach") {
+                document.body.style.backgroundImage = "url('images/ws_Empty_beach_1920X1200.jpg')";
+            } else if (loc[chooseLocation] == " on a mountain") {
+                document.body.style.backgroundImage = "url('images/mountain-1.jpg')";
+            } else if (loc[chooseLocation] == " near a volcano") {
+                document.body.style.backgroundImage = "url('images/volcano.jpg')";
+            }
+        }
+        var consequence = ["dead", "survived", "stuck", "rescued", "see", "hear", "lost", "smell", "feel"];
+        var loc = [" in a forest", " in a desert", " on a beach", " on a mountain", " near a volcano"];
+        var getDir = document.getElementById("direction");
+        getDir.addEventListener("click", move);
+        var getMessage = document.getElementById("message");
+        var getForm = document.getElementById("directionForm");
+    </script>
+
+</body>
+
+</html>

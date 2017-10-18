@@ -4,20 +4,22 @@ var posX = 0;
 var posY = 0;
 
 
-function setup(){
+function setup() {
     createCanvas(1000,500);
-    background("palegreen");
+   
     
     posX = width/2;
     posY = 275;
     
 }
 
-function draw(){
+function draw() {
+    background("palegreen");
     strokeWeight(2);
     stroke(0);
     ellipseMode(CENTER);
     rotate(0);
+  
     
     //arms
     noFill();
@@ -32,7 +34,7 @@ function draw(){
     //face
     strokeWeight(2);
     fill("forestgreen");
-    ellipse(posX,posY-30,fSize - 15,fSize - 25);//x,y,width,height
+    ellipse(posX,posY-30,fSize - 15,fSize - 25);
     strokeWeight(0);
     triangle(posX + 95, posY - 175, posX + 117, posY - 45, posX - 35, posY - 137.5);
     strokeWeight(2);

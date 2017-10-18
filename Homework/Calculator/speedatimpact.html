@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Speed at Impact Calculator</title>
+
+    <style>
+ 
+        body {background-color: palegreen}
+        
+    </style>
+
+ </head>
+
+
+<body>
+
+    <h1 id="cssOne">Speed at Impact Calculator</h1>
+    
+    <div id="image" style="text-align: center"><img src="galileo-piza.jpg" height=300 align="middle" text-align = "center"></div>
+    
+    
+    <p id="cssTwo"><i>Enter a height to determine how fast an object would be going by the time it hits the ground when dropped from that height.</i></p>
+    
+    
+    <form id="heightform" method="post">
+        
+        <label for="heightfeet">Height in Feet:</label>
+        <input type="text" name="heightfeet" id="heightfeet" onkeydown="if (event.keyCode== 13) {document.getElementById('calculateButton').click();event.returnValue=false;event.cancel=true;}"> <button type="button" id="calculateButton">Calculate!</button>
+      
+    </form>
+<br>
+    <div id="output" style="text-align: center; font-family: verdana; color: navy;"></div>
+
+    <script>
+        
+        function Calculate()
+        {
+            var heightfeet = document.getElementById("heightfeet").value;
+            var heightmeters = heightfeet * .3048;
+            var speedmeters = Math.sqrt(heightmeters * 2 * 9.8);
+            var speedmiles = speedmeters * 2.23694;
+                speedmiles = Math.round(speedmiles * 10)/10
+            var message = speedmiles + " miles per hour at impact";
+            
+            var output = document.getElementById("output");
+            output.innerHTML = message;
+            console.log(message);
+        }
+        
+        var getButton = document.getElementById("calculateButton");
+        getButton.addEventListener("click", Calculate);
+        
+        
+        var cssChange = document.getElementById("cssOne");
+        cssChange.style.color = "navy";
+        cssChange.style.fontFamily = "verdana";
+        cssChange.style.textAlign = "center";
+        
+        var cssChangeTwo = document.getElementById("cssTwo");
+        cssChangeTwo.style.color = "navy";
+        cssChangeTwo.style.fontFamily = "verdana";
+        cssChangeTwo.style.textAlign = "center";
+        
+        var cssChangeThree = document.getElementById("heightform");
+        cssChangeThree.style.color = "navy";
+        cssChangeThree.style.fontFamily = "verdana";
+        cssChangeThree.style.textAlign = "center";
+        
+   
+        
+        
+        
+        
+             
+    </script>
+
+</body>
+
+</html>

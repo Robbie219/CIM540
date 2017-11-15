@@ -2,11 +2,15 @@ var interfaceItems = [];
 
 var dots = [];
 
+var r = 0;
+var g = 0;
+var b = 0;
+
 function setup() {
     createCanvas(400, 400);
 
-    interfaceItems.push(new interface(50, 360, 40));
-    interfaceItems.push(new interface(150, 360, 40));
+    interfaceItems.push(new interface(50, 360, 40,255,0,0));
+    interfaceItems.push(new interface(150, 360, 40,0,255,0));
 
     //    for (var i = 0; i <= 500; i++) {
     //        dots.push(new makeDots(random(width),random(height-50),10));
@@ -20,7 +24,25 @@ function draw() {
     //console.log(interfaceItems[0].check());
     interfaceItems[1].display();
     interfaceItems[1].check();
+    
+    if(r == 0){
+        r++;
+    }else if(r == 255){
+        r--;
+    }
+    
+     if(g == 0){
+        g++;
+    }else if(g == 255){
+        g--;
+    }
 
+     if(b == 0){
+        b++;
+    }else if(b == 255){
+        b--;
+    }
+    
     for (var i = 0; i < dots.length; i++) {
         dots[i].display();
         dots[i].moveX();
@@ -49,15 +71,20 @@ function draw() {
 
 }
 
-function interface(tempX, tempY, tempBoxSize) {
+function interface(tempX, tempY, tempBoxSize,tempR,tempG,tempB) {
 
     this.x = tempX;
     this.y = tempY;
     this.boxSize = tempBoxSize;
+    this.r = tempR;
+    this.g = tempG;
+    this.b = tempB;
     
 
     this.display = function () {
+        fill(this.r,this.g,this.b)
         rect(this.x, this.y, this.boxSize, this.boxSize);
+       
     }
     this.check = function () {
         if (mouseX > this.x && mouseX < (this.x + this.boxSize) && mouseY > this.y && mouseY < (this.y + this.boxSize)) {
@@ -72,24 +99,30 @@ function interface(tempX, tempY, tempBoxSize) {
 
 function mousePressed() {
     if (interfaceItems[0].check() == true) {
-        dots.push(new makeDots(random(width), random(height - 50), 10, floor(random(2))));
+        dots.length --;
     }
 
     if (interfaceItems[1].check() == true) {
-        dots.length --;
+        dots.push(new makeDots(random(width), random(height - 50),random(5,40), floor(random(2)),random(256),random(256),random(256)));
+        
 
     }
 }
 
-function makeDots(tempX, tempY, tempDiameter, tempDir) {
+function makeDots(tempX, tempY, tempDiameter, tempDir,tempR,tempG,tempB) {
 
     this.x = tempX;
     this.y = tempY;
     this.diameter = tempDiameter;
     this.direction = tempDir;
+    this.r = tempR;
+    this.g = tempG;
+    this.b = tempB;
+    
 
     this.display = function () {
-        ellipse(this.x, this.y, this.diameter, this.diameter);
+        fill(this.r,this.g,this.b);
+        ellipse(this.x, this.y, this.diameter, this.diameter,this.r,this.g,this.b);
     }
 
     this.moveX = function () {

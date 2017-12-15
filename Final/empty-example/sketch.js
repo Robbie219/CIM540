@@ -44,7 +44,7 @@ function setup() {
     
   bird = createSprite(width, height/2, 40,40);
   bird.rotateToDirection = true;
-  bird.velocity.x = 4;
+  //bird.velocity.x = 4;
   bird.setCollider("circle", 0,0,20);
  
   pipes = new Group();
@@ -74,10 +74,10 @@ function draw() {
       
   }
     
-    volume = volumeTot/volumeArray.length;
- 
+    //volume = volumeTot/volumeArray.length;
+ volume = source.getLevel();
     
-  console.log(volumeTot);
+ // console.log(volumeTot);
 
   
  
@@ -107,10 +107,10 @@ function draw() {
       die();
 
     //spawn pipes
-    if(frameCount%100 == 0) {
+    if(frameCount%180 == 0) {
       var pipeH = random(50, 1000);
       var pipe = createSprite(bird.position.x + width , height, 80, pipeH);
-      
+      pipe.velocity.x =-4;
       pipes.add(pipe);
 
       //top pipe
@@ -118,7 +118,7 @@ function draw() {
         MAX_OPENING = height - pipeH - 50;
        
         var pipe2 = createSprite(bird.position.x + width ,0, 80, 1000-pipeH);
-
+         pipe2.velocity.x = -4;
         pipes.add(pipe2);
       }
     }
@@ -145,8 +145,9 @@ function draw() {
   var cents = centsOffFromPitch( freq, note );
   
   currentNote = noteName[note % 12];
-  text("Frequency: " + freq.toFixed(2) + " Note: " + currentNote + " Cents: " + cents, 20, 50);
-
+  text("Frequency: " + freq.toFixed(2) + " Note: " + currentNote + " Cents: " + cents, 220, 50);
+  textAlign(RIGHT,TOP);
+     console.log("Frequency: " + freq.toFixed(2) + " Note: " + currentNote + " Cents: " + cents);
   }
   
 }

@@ -1,11 +1,13 @@
-## Three Final Project Ideas
+## Tuner with Long Tone Training Game
 
-#### Project Idea 1: Tuner with visual/generative Art display
-This would be a program that uses the device's microphone to determine the frequency of a pitch played by an instrument or sung by the user.
-Using the tuning standard A=440hz, the program would determine the closest of the twelve pitches in western music, that is being played. The program wouldthen display some sort of generative art based on what pitch is being played, how close to being in tune it is, or how sharp or flat it is. Each of these parameters would alter the image by changing things such as color, position of the objects, opacity, and playing closer in tune would hopefully yield the best effects. I think the holding the pitch in tune would cause the image to start generating more art and geometric shapes and patterns. Perhaps there would also be options for different themes that would react differently. For examply, there could be a theme that creates lots of bubbles when you play in tune and the bubbles change color when you change pitch, but start to pop when you play out of tune, or another theme could be a party of character sprites that start to dance when you play in tune, but start leaving or getting angry when you are not in tune. More themes could be added as well.
-    
-#### Project Idea 2: Interactive Environment that creates sound
-the user would be presented with a world in which the can interact with various objects and doing so would produce music and sounds, allowing users to create their own music while interacting with the virtual world. The interactions would be primarily through mouseclicks, but there could also be buttons that would allow for a change in scenery. I would like to aslo include little easter eggs that can be found through playing well-known melodies. For example, there could be a scene that depicts the night sky, and clicking on the stars would produce notes, and also cause them to "twinkle." Perhaps if the user were to play the beggining to the melody of "Twinkle Twinkle Little Star" on this screen an event would trigger which would cause the stars to all start twinkling and the full melody of "Twinkle Twinkle Little Star" would play automatically.
- 
-#### Project Idea 3: Art Generating Sound Mixer
-As a song is playing, the user would manipulate various sliders to affect the balance of the music, the volume of the bass, mid, and treble frequencies. Doing so will also affect how the visual art is being generated. For example, boosting the bass would have a different outcome in the generation of the picture than boosting the treble, leading to new art depending on the various mixes that could be produced.
+This is a tuner designed with wind instrumentalists in mind. 
+A key part of wind technique is to generate a musical pitch in tune at various dynamic levels.
+To master this, wind players must practice long tones, literally just playing long notes at various volumes to practice being in tune.
+This is a tedious and boring task, and it is the goal of the this tuner to game-ify the process.
+The tuner uses the P5 sound and play libraries.
+It receives input from the Microphone, uses FFT to analyze frequency spectrums and an autocorrelation algorithm to detect fundamental frequency, and cents.
+It also uses the source level to determine volume.
+The training game is similar to Flappy Bird.
+It uses sprites to generate a player sprite and obstacle pipes.
+The player sprite moves along the y-axis according to volume level.
+By being within a cent range of -5 to 5, and successfully passing pipes, users will score points, thus training intonation at various dynamic levels as pipes spawn at random heights.

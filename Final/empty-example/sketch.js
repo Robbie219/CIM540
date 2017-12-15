@@ -2,6 +2,10 @@ var noteName = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 
 var source, fft, lowPass, currentNote, cents, volume;
 var volumeTot = 0;
+var resetScore = 0;
+var score = 0;
+
+var hiScore = 0;
 var volumeArray = [];
 
 // center clip nullifies samples below a clip amount
@@ -63,18 +67,18 @@ function draw() {
    
   //display fundamental freq in hz
  fill(255);
-  var volumeNow = source.getLevel();  
-  
-  for(var i; i <=100; i ++){
-      volumeArray[i] = volumeNow;
-      volumeTot += volumeArray[i];
-      if(i = 100){
-          i = 0;
-      }
-      
-  }
-    
-    //volume = volumeTot/volumeArray.length;
+//  var volumeNow = source.getLevel();  
+//  
+//  for(var i = 0; i <=100; i ++){
+//      volumeArray[i] = volumeNow;
+//      volumeTot += volumeArray[i];
+//      if(i = 100){
+//          i = 0;
+//      }
+//      
+//  }
+//    
+//    volume = volumeTot/volumeArray.length;
  volume = source.getLevel();
   //smooth(volume,1);  
  // console.log(volumeTot);
@@ -87,7 +91,7 @@ function draw() {
       
   //tuning game
     
-    var y1 = map(volume,0.06,0.3,height,0);
+    var y1 = map(volume.toFixed(1),0.06,0.5,height,0);
 
   if(gameOver && volume > 0.05)
     newGame();
@@ -117,7 +121,7 @@ function draw() {
       if(pipeH > 0) {
         MAX_OPENING = height - pipeH - 50;
        
-        var pipe2 = createSprite(bird.position.x + width ,0, 80, 1000-pipeH);
+        var pipe2 = createSprite(bird.position.x + width ,0, 80, height-pipeH);
          pipe2.velocity.x = -4;
         pipes.add(pipe2);
       }
@@ -127,8 +131,22 @@ function draw() {
     for(var i = 0; i<pipes.length; i++)
       if(pipes[i].position.x < bird.position.x-width/2)
         pipes[i].remove();
+      
+      // scoring
+    for(var i = 0; i<pipes.length; i ++){
+        if(pipes[i].position.x < bird.position.x && cents <= 5 && cents >= -5){
+            
+             score++;
+        }
+        if(score > hiScore){
+            hiScore = score;
+        }
+    }
+     
   } 
-
+   
+    console.log(score);
+   
   camera.position.x = bird.position.x + width/4;
 
 
@@ -145,9 +163,9 @@ function draw() {
   var cents = centsOffFromPitch( freq, note );
   
   currentNote = noteName[note % 12];
-  text("Frequency: " + freq.toFixed(2) + " Note: " + currentNote + " Cents: " + cents, width/3, 50);
+  text (" Note: " + currentNote + " Cents: " + cents + " Score: " + score + " HiScore: " + hiScore, width/3, 50);
  // textAlign(LEFT,TOP);
-     console.log("Frequency: " + freq.toFixed(2) + " Note: " + currentNote + " Cents: " + cents);
+    // console.log("Frequency: " + freq.toFixed(2) + " Note: " + currentNote + " Cents: " + cents);
   }
   
 }
@@ -165,6 +183,7 @@ function newGame() {
   bird.position.x = width/2;
   bird.position.y = height/2;
   bird.velocity.y = 0;
+  score = resetScore;
 
 }
 

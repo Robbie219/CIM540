@@ -30,7 +30,7 @@ function setup() {
   source = new p5.AudioIn();
   source.start();
   source.getLevel();
-  
+  smooth(1);
 
 
   lowPass = new p5.LowPass();
@@ -39,7 +39,7 @@ function setup() {
 
   fft = new p5.FFT();
   fft.setInput(lowPass);
-    
+   fft.smooth(); 
   //tuning game
     
   bird = createSprite(width, height/2, 40,40);
@@ -76,7 +76,7 @@ function draw() {
     
     //volume = volumeTot/volumeArray.length;
  volume = source.getLevel();
-    
+  //smooth(volume,1);  
  // console.log(volumeTot);
 
   
@@ -145,8 +145,8 @@ function draw() {
   var cents = centsOffFromPitch( freq, note );
   
   currentNote = noteName[note % 12];
-  text("Frequency: " + freq.toFixed(2) + " Note: " + currentNote + " Cents: " + cents, 220, 50);
-  textAlign(RIGHT,TOP);
+  text("Frequency: " + freq.toFixed(2) + " Note: " + currentNote + " Cents: " + cents, width/3, 50);
+ // textAlign(LEFT,TOP);
      console.log("Frequency: " + freq.toFixed(2) + " Note: " + currentNote + " Cents: " + cents);
   }
   

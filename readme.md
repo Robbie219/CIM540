@@ -12,3 +12,5 @@ I am interested in learning to code as a means of creating useful and entertaini
 ## [Week 2](https://github.com/Robbie219/CIM540/tree/master/week2)
 
 ## [Week 3](https://github.com/Robbie219/CIM540/tree/master/week%203)
+
+## [Final](https://github.com/Robbie219/CIM540/tree/master/Final)

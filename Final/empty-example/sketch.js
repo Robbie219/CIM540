@@ -1,6 +1,7 @@
 var noteName = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 
-var source, fft, lowPass, currentNote, cents, volume, volumeTot;
+var source, fft, lowPass, currentNote, cents, volume;
+var volumeTot = 0;
 var volumeArray = [];
 
 // center clip nullifies samples below a clip amount
@@ -63,13 +64,16 @@ function draw() {
   //display fundamental freq in hz
  fill(255);
   var volumeNow = source.getLevel();  
-  volumeTot = 0
-  for(var i; i <=10; i ++){
+  
+  for(var i; i <=100; i ++){
       volumeArray[i] = volumeNow;
-      if(i = 10){
+      volumeTot += volumeArray[i];
+      if(i = 100){
           i = 0;
       }
+      
   }
+    
     volume = volumeTot/volumeArray.length;
  
     

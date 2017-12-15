@@ -4,7 +4,7 @@ var source, fft, lowPass, currentNote, cents, volume;
 var volumeTot = 0;
 var resetScore = 0;
 var score = 0;
-
+//var avgVol = 0;
 var hiScore = 0;
 var volumeArray = [];
 
@@ -33,8 +33,8 @@ function setup() {
 //pitch detection
   source = new p5.AudioIn();
   source.start();
-  source.getLevel();
-  smooth(1);
+  //source.getLevel();
+  //smooth(1);
 
 
   lowPass = new p5.LowPass();
@@ -67,19 +67,18 @@ function draw() {
    
   //display fundamental freq in hz
  fill(255);
-//  var volumeNow = source.getLevel();  
-//  
-//  for(var i = 0; i <=100; i ++){
-//      volumeArray[i] = volumeNow;
-//      volumeTot += volumeArray[i];
-//      if(i = 100){
-//          i = 0;
-//      }
-//      
-//  }
-//    
-//    volume = volumeTot/volumeArray.length;
- volume = source.getLevel();
+
+ for(var i; i <= 10; i++){
+     volumeTot += source.getLevel;
+
+ }
+    volume = volumeTot/10;
+    volumeTot = 0;
+    console.log(volume);
+ 
+  //volumeTot = 0;  
+
+ //volume = source.getLevel();
   //smooth(volume,1);  
  // console.log(volumeTot);
 
@@ -106,7 +105,6 @@ function draw() {
       bird.position.y = 0;
     
   
-
     if(bird.overlap(pipes))
       die();
 
@@ -145,7 +143,7 @@ function draw() {
      
   } 
    
-    console.log(score);
+    //console.log(score);
    
   camera.position.x = bird.position.x + width/4;
 

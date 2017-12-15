@@ -1,6 +1,7 @@
 var noteName = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 
-var source, fft, lowPass, currentNote, cents, volume;
+var source, fft, lowPass, currentNote, cents, volume, volumeTot;
+var volumeArray = [];
 
 // center clip nullifies samples below a clip amount
 var doCenterClip = false;
@@ -10,20 +11,15 @@ var centerClipThreshold = 0.0;
 var preNormalize = true;
 var postNormalize = true;
 
-var ship;
-var obstacles;
-var gameOver;
-var MIN_OPENING = 200;
+//game variables
+
 var GROUND_Y = 450;
+var MAX_OPENING;
+var bird, ground;
+var pipes;
+var gameOver;
 
-var shipInTuneImg,ShipOutImg, obstacleImg;
 
-function preload(){
-    shipInTuneImg = loadImage("assets/Triangle_Green.png");
-    shipOutImg = loadImage("assets/Triangle_Red.png");
-    obstacleImg = loadImage("assets/Obstacle.png");
-    
-}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -32,6 +28,7 @@ function setup() {
 //pitch detection
   source = new p5.AudioIn();
   source.start();
+  source.getLevel();
   
 
 
@@ -43,21 +40,17 @@ function setup() {
   fft.setInput(lowPass);
     
   //tuning game
-   //shipOutImg.resize((400,400));
     
-    
-    ship = createSprite(100, 150, 50, 100);
-    ship.rotateToDirection = true;
-    ship.velocity.x = 4;
-    ship.setCollider("circle",0,0,20);
-    //ship.addImage(shipOutImg);
-    
-    
-    obstacles = new Group();
-    gameOver = false;
-    updateSprites(false);
-    
-    camera.position.y = height/2;
+  bird = createSprite(width, height/2, 40,40);
+  bird.rotateToDirection = true;
+  bird.velocity.x = 4;
+  bird.setCollider("circle", 0,0,20);
+ 
+  pipes = new Group();
+  gameOver = true;
+  updateSprites(false);
+  
+ 
 }
 
 function draw() {
@@ -69,92 +62,91 @@ function draw() {
    
   //display fundamental freq in hz
  fill(255);
-  volume = source.getLevel();
+  var volumeNow = source.getLevel();  
+  volumeTot = 0
+  for(var i; i <=10; i ++){
+      volumeArray[i] = volumeNow;
+      if(i = 10){
+          i = 0;
+      }
+  }
+    volume = volumeTot/volumeArray.length;
+ 
+    
+  console.log(volumeTot);
 
-  if(volume > 0.00){
+  
+ 
+    
+
+      
+      
+  //tuning game
+    
+    var y1 = map(volume,0.06,0.3,height,0);
+
+  if(gameOver && volume > 0.05)
+    newGame();
+
+  if(!gameOver) {
+
+   
+    
+      bird.position.y = y1;
+          
+    if(bird.position.y<0)
+      bird.position.y = 0;
+    
+  
+
+    if(bird.overlap(pipes))
+      die();
+
+    //spawn pipes
+    if(frameCount%100 == 0) {
+      var pipeH = random(50, 1000);
+      var pipe = createSprite(bird.position.x + width , height, 80, pipeH);
+      
+      pipes.add(pipe);
+
+      //top pipe
+      if(pipeH > 0) {
+        MAX_OPENING = height - pipeH - 50;
+       
+        var pipe2 = createSprite(bird.position.x + width ,0, 80, 1000-pipeH);
+
+        pipes.add(pipe2);
+      }
+    }
+
+    //get rid of passed pipes
+    for(var i = 0; i<pipes.length; i++)
+      if(pipes[i].position.x < bird.position.x-width/2)
+        pipes[i].remove();
+  } 
+
+  camera.position.x = bird.position.x + width/4;
+
+
+
+  background(0,0,0); 
+  
+  drawSprites(pipes);
+  
+  drawSprite(bird);
+
+ if(volume > 0.00){
   var freq = findFrequency(corrBuff);
   var note =  noteFromPitch( freq );
   var cents = centsOffFromPitch( freq, note );
   
   currentNote = noteName[note % 12];
   text("Frequency: " + freq.toFixed(2) + " Note: " + currentNote + " Cents: " + cents, 20, 50);
+
   }
-      
-      
-  //tuning game
-  var y1 =  map(volume,0.00,1,height,0);  
-  
- if(gameOver && volume >= 0.00)
-    newGame();
-    
- if(!gameOver){
-     
-     ship.position.y = y1;
-     
-     if(ship.position.y < 0)
-         ship.position.y = 0;
-     
-     
-     if (ship.position.y > height)
-         ship.position.y = height;
-     
-     
-     if (ship.overlap(obstacles))
-         die();
-     
-     
-     //spawn obstacles
-     if(frameCount%60 === 0) {
-      var obstacleH = random(50, 300);
-      var obstacle = createSprite(ship.position.x + width, GROUND_Y-obstacleH/2+1+100, 80, obstacleH);
-      //obstacle.addImage(obstacleImg);
-      obstacles.add(obstacle);
-
-      //top obstacle
-      if(obstacleH<200) {
-        obstacleH = height - (height-GROUND_Y)-(obstacleH+MIN_OPENING);
-        obstacle = createSprite(ship.position.x + width, obstacleH/2-100, 80, obstacleH);
-        obstacle.mirrorY(-1);
-        //obstacle.addImage(obstacleImg);
-        obstacles.add(obstacle);
-      }
- }
-     //get rid of passed obstacles
-    for(var i = 0; i<obstacles.length; i++)
-      if(obstacles[i].position.x < ship.position.x-width/2)
-        obstacles[i].remove();
-}
-
-    camera.position.x = ship.position.x + width/4;
-    
-//  background(247, 134, 131); 
-//  camera.off();
-//  image(bgImg, 0, GROUND_Y-190);
-  camera.on();
-
-  drawSprites(obstacles);
-
-  drawSprite(ship);
-
-
- 
-
-    
-  
-
-  
-//if(volume > 0.05){
-//    runDetect = true;
-//} else{
-//    runDetect = false;
-//} 
-//  //console.log(cents);
-//console.log(runDetect);
-
   
 }
 
-//game functions
 
 function die() {
   updateSprites(false);
@@ -165,10 +157,18 @@ function newGame() {
   pipes.removeSprites();
   gameOver = false;
   updateSprites(true);
-  ship.position.x = width/2;
-  ship.position.y = height/2;
-  ship.velocity.x = 4;
+  bird.position.x = width/2;
+  bird.position.y = height/2;
+  bird.velocity.y = 0;
+
 }
+
+function mousePressed() {
+  if(gameOver)
+    newGame();
+  
+}
+
 
 
 
@@ -300,112 +300,4 @@ function frequencyFromNoteNumber( note ) {
 
 
 
-
-
-
-// var buf = new Float32Array( 1024 );
-//  var MIN_SAMPLES = 0;
-// //var MAX_SIZE = Math.max(4,Math.floor(audioContext.sampleRate/5000));
-//  var GOOD_ENOUGH_CORRELATION = 0.9;
-//  var mic;
-//  var note;
-//var cents;
-//var freq;
-//var freqNote;
-//var currentNote;
-//var noteStrings = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
-//
-//
-//
-//function setup(){
-// createCanvas(windowWidth,windowHeight);
-// mic = new p5.AudioIn()
-// mic.start();
-// fft = new p5.FFT();
-// fft.setInput(mic);
-//    
-//}
-//
-//function draw(){
-//    background(0);
-//    fill(255);
-//    
-//  buf= fft.waveform();
-//  freq = autoCorrelate(buf, sampleRate() );
-//  note = noteFromPitch(freq);
-//  cents = centsOffFromPitch(freq,note);
-//  freqNote = frequencyFromNoteNumber(note);
-//  console.log("note: " + note + " cents: " + cents);
-//  currentNote = noteStrings[note % 12];
-//  text("Note: " + currentNote + " Freq: " + freqNote + " cents: " + cents,10,10);
-// 
-//     
-//    
-//}
-//
-//function autoCorrelate( buf, sampleRate ) {
-//          var SIZE = buf.length;
-//    //var SIZE = 1000;
-//      var MAX_SAMPLES = Math.floor(SIZE/2);
-//    //var MAX_SAMPLES = 1000;
-//          var best_offset = -1;
-//      var best_correlation = 0;
-//      var rms = 0;
-//      var foundGoodCorrelation = false;
-//      var correlations = new Array(MAX_SAMPLES);
-//
-//for (var i=0;i<SIZE;i++) {
-//	var val = buf[i];
-//	rms += val*val;
-//}
-//rms = Math.sqrt(rms/SIZE);
-//if (rms<0.01) // not enough signal
-//	return -1;
-//
-//var lastCorrelation=1;
-//for (var offset = MIN_SAMPLES; offset < MAX_SAMPLES; offset++) {
-//	var correlation = 0;
-//
-//	for (var i=0; i<MAX_SAMPLES; i++) {
-//		correlation += Math.abs((buf[i])-(buf[i+offset]));
-//	}
-//	correlation = 1 - (correlation/MAX_SAMPLES);
-//	correlations[offset] = correlation; // store it, for the tweaking we need to do below.
-//	if ((correlation>GOOD_ENOUGH_CORRELATION) && (correlation > lastCorrelation)) {
-//		foundGoodCorrelation = true;
-//		if (correlation > best_correlation) {
-//			best_correlation = correlation;
-//			best_offset = offset;
-//		}
-//	} else if (foundGoodCorrelation) {
-//		// short-circuit - we found a good correlation, then a bad one, so we'd just be seeing copies from here.
-//		// Now we need to tweak the offset - by interpolating between the values to the left and right of the
-//		// best offset, and shifting it a bit.  This is complex, and HACKY in this code (happy to take PRs!) -
-//		// we need to do a curve fit on correlations[] around best_offset in order to better determine precise
-//		// (anti-aliased) offset.
-//
-//		// we know best_offset >=1,
-//		// since foundGoodCorrelation cannot go to true until the second pass (offset=1), and
-//		// we can't drop into this clause until the following pass (else if).
-//		var shift = (correlations[best_offset+1] - correlations[best_offset-1])/correlations[best_offset];
-//		return sampleRate/(best_offset+(8*shift));
-//	}
-//	lastCorrelation = correlation;
-//}
-//if (best_correlation > 0.01) {
-//	 //console.log("f = " + sampleRate/best_offset + "Hz (rms: " + rms + " confidence: " + best_correlation + ")")
-//	return sampleRate/best_offset;
-//}
-//return -1;
-//   //	var best_frequency = sampleRate/best_offset;
-//      }
- 
-//
-//function frequencyFromNoteNumber( note ) {
-//	return 440 * Math.pow(2,(note-69)/12);
-//}
-//
-//function centsOffFromPitch( freq, note ) {
-//	return Math.floor( 1200 * Math.log( freq / frequencyFromNoteNumber( note ))/Math.log(2) );
-//}
 

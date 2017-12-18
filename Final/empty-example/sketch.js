@@ -68,17 +68,17 @@ function draw() {
   //display fundamental freq in hz
  fill(255);
 
- for(var i; i <= 10; i++){
-     volumeTot += source.getLevel;
-
- }
-    volume = volumeTot/10;
-    volumeTot = 0;
-    console.log(volume);
+// for(var i; i <= 10; i++){
+//     volumeTot += source.getLevel;
+//
+// }
+//    volume = volumeTot/10;
+//    volumeTot = 0;
+//    console.log(volume);
  
   //volumeTot = 0;  
 
- //volume = source.getLevel();
+ volume = source.getLevel();
   //smooth(volume,1);  
  // console.log(volumeTot);
 
@@ -99,7 +99,7 @@ function draw() {
 
    
     
-      bird.position.y = y1;
+    bird.position.y = y1;
           
     if(bird.position.y<0)
       bird.position.y = 0;

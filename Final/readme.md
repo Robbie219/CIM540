@@ -7,6 +7,7 @@ This is a tedious and boring task, and it is the goal of the this tuner to game-
 The tuner uses the P5 sound and play libraries.
 It receives input from the Microphone, uses FFT to analyze frequency spectrums and an autocorrelation algorithm to detect fundamental frequency, and cents.
 It also uses the source level to determine volume.
+To average the cents and volume inputs, a counter is used and with modulus 30, the inputs are averaged.
 The training game is similar to Flappy Bird.
 It uses sprites to generate a player sprite and obstacle pipes.
 The player sprite moves along the y-axis according to volume level.

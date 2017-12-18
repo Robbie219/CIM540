@@ -18,7 +18,7 @@ By being within a cent range of -5 to 5, and successfully passing pipes, users w
 
 The program first identifies the source of sound as the device's microphone. Using the fft function, it gathers all frequencies picked up b the microphone. This function is from the sound library.
 
-To find the fundamental frequency of the sound being picked up, it uses the autocrrelation algorithm, based on code by [therewasaguy](https://github.com/therewasaguy/p5-music-viz)
+To find the fundamental frequency of the sound being picked up, it uses the autocorrelation algorithm, based on code by [therewasaguy](https://github.com/therewasaguy/p5-music-viz)
 
 The fundamental frequency is then converted to a numerical representation of a note through the following function:  
 function noteFromPitch(freq) {
